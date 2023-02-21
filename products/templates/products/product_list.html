@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+<div class="home-container">
+    <div>
+        <h4>Browse</h4>
+        <a href="{% url 'home' %} "> All</a> <br>
+        <a href="{% url 'create-product' %}"> Add Product</a> <br>
+        <a href="{% url 'home' %}?q=2023 "> Contains 2023</a><br>
+        <a href="{% url 'home' %}?q=s "> Contains</a><br>
+        <a href="{% url 'home' %}?q=s "> Added today</a><br>
+
+    </div>
+    <div>
+        {% for product in products %}
+        <a href="{% url 'home' %}?q={{product.name}} "> {{product.name}}</a>
+        <a href="{% url 'update-product' product.id %}"> Update</a>
+
+        <pre>Product ID is:</pre>
+        <h5>{{product.id}}: Product name: {{product.name }}</h5>
+        <h5>Selling Price: {{product.selling_price }}</h5>
+        <h6>Description: {{product.description}}</h6>
+
+        <a href="{% url 'update-product' product.id %}"> Update</a>
+        <a href="{% url 'delete-product' product.id %}"> Delete</a>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock content %}
